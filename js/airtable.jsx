@@ -4,8 +4,8 @@
    SETUP: fill in token + baseId below. See "Airtable setup.html" for the exact
    table and field names to create, and how to make a write-only token. */
 const GTG_AIRTABLE = {
-  token: '',                    // Personal access token, scope: data.records:write
-  baseId: '',                   // e.g. appXXXXXXXXXXXXXX
+  token: 'pat0zVKoMxcK6ywN2.ccaf6d6893605e1f9938114ccf33967265fbc0ad50eff1edaa60cfc25edb7cf5', // Personal access token, scope: data.records:write
+  baseId: 'app86OKadqCAGYeHn',  // GroundingToGo base
   quizTable: 'Quiz responses',
   requestTable: 'Consultation requests',
 };

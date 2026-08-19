@@ -1,0 +1,110 @@
+/* =========================================================================
+   GroundingtoGo — Color & Type Foundations
+   -------------------------------------------------------------------------
+   Reskinned to the supplied moodboard: a calm, inspiring, coastal-Mediterranean
+   palette — gray-azure blue, soft light yellow, gray-orange taupe and a deep
+   gray-brown ink on warm ivory. Editorial serif type throughout.
+
+   FONTS (from the moodboard):
+     Playfair Display    — primary / headlines
+     Cormorant Garamond  — secondary / body + UI + subtext
+     Beth Ellen          — supplementary / script accents
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Beth+Ellen&display=swap');
+
+:root {
+  /* ---- Font families ---------------------------------------------------- */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;      /* headlines, taglines */
+  --font-sans: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;       /* body + UI + subtext */
+  --font-script: 'Beth Ellen', 'Segoe Script', cursive;                       /* supplementary accents */
+
+  /* ---- Brand accent (the single interactive color) — gray azure --------- */
+  --clay: #af8b68;            /* primary action — links, pill CTAs, focus root (warm clay, AA on white) */
+  --clay-focus: #bd9c7a;      /* focus ring / pressed brighten */
+  --clay-on-dark: #d9c2a4;    /* in-copy links on dark tiles */
+  --azure: #638da6;           /* legacy decorative token, unused by accent */
+
+  /* ---- Sunny accent (highlight only, never for white-on text) ----------- */
+  --yellow: #fffea5;          /* moodboard Light Yellow — soft highlight surfaces */
+  --yellow-deep: #e8d873;     /* legible yellow for dots/marks on light */
+
+  /* ---- Surfaces --------------------------------------------------------- */
+  --white: #ffffff;           /* utility cards, crisp surfaces */
+  --canvas: #f6f1ea;          /* default warm ivory page canvas */
+  --sand: #ece2d2;            /* signature off-white — alternating light tiles, footer */
+  --pearl: #f2ebe0;           /* ghost-button fill, sits above sand */
+  --sage: #d7e0e4;            /* rare editorial surface tint — soft coastal blue-grey (NEVER interactive) */
+  --tile-1: #3c3021;          /* primary dark tile — moodboard Dark Gray Brown */
+  --tile-2: #45392a;          /* micro-step lighter dark tile */
+  --tile-3: #342a1d;          /* micro-step darker dark tile */
+  --black: #241d14;           /* true void — global nav, video, photo overlays */
+  --chip-translucent: #e8dfd0;/* base of translucent control chip over photos */
+
+  /* ---- Text ------------------------------------------------------------- */
+  --ink: #3c3021;             /* headlines + body on light — Dark Gray Brown */
+  --body: #3c3021;
+  --body-on-dark: #f6f1ea;    /* text on dark tiles + nav */
+  --body-muted: #cabca6;      /* secondary copy on dark tiles */
+  --ink-muted-80: #5a4f40;    /* softened body */
+  --ink-muted-48: #8f8272;    /* disabled text + fine print */
+
+  /* ---- Hairlines -------------------------------------------------------- */
+  --divider-soft: #ece2d2;    /* soft ring on secondary buttons */
+  --hairline: #ddceb9;        /* 1px border on utility cards + chips */
+
+  /* ---- The one shadow (photographic imagery only) ----------------------- */
+  --shadow-image: 3px 5px 30px 0 rgba(60, 48, 33, 0.22);
+  --ring-focus: 0 0 0 2px var(--clay-focus);
+
+  /* ---- Radii ------------------------------------------------------------ */
+  --r-none: 0px;
+  --r-xs: 5px;
+  --r-sm: 8px;
+  --r-md: 11px;
+  --r-lg: 18px;
+  --r-pill: 9999px;
+  --r-full: 9999px;
+
+  /* ---- Spacing (8px base) ----------------------------------------------- */
+  --s-xxs: 4px;
+  --s-xs: 8px;
+  --s-sm: 12px;
+  --s-md: 17px;
+  --s-lg: 24px;
+  --s-xl: 32px;
+  --s-xxl: 48px;
+  --s-section: 80px;
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --press: scale(0.96);
+  --ease-quiet: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 240ms;
+}
+
+/* ---- Type helper classes (use these in markup) ------------------------- */
+/* Cormorant/Playfair run a touch small & light at UI sizes, so body sizes are
+   nudged up and weights set to 500 for a comfortable reading pace. */
+.t-hero       { font-family: var(--font-display); font-size: 58px; font-weight: 600; line-height: 1.06; letter-spacing: -0.5px; }
+.t-display-lg { font-family: var(--font-display); font-size: 42px; font-weight: 600; line-height: 1.10; letter-spacing: -0.3px; }
+.t-display-md { font-family: var(--font-display); font-size: 33px; font-weight: 600; line-height: 1.18; letter-spacing: -0.2px; }
+.t-tagline    { font-family: var(--font-display); font-size: 24px; font-weight: 400; font-style: italic; line-height: 1.3; letter-spacing: 0; }
+.t-script     { font-family: var(--font-script); font-size: 26px; font-weight: 400; line-height: 1.2; letter-spacing: 0; }
+.t-lead       { font-family: var(--font-sans); font-size: 25px; font-weight: 500; line-height: 1.36; letter-spacing: 0; }
+.t-lead-airy  { font-family: var(--font-sans); font-size: 23px; font-weight: 400; line-height: 1.5; letter-spacing: 0; }
+.t-eyebrow    { font-family: var(--font-sans); font-size: 13px; font-weight: 600; line-height: 1; letter-spacing: 2.4px; text-transform: uppercase; }
+.t-body-strong{ font-family: var(--font-sans); font-size: 19px; font-weight: 600; line-height: 1.4; letter-spacing: 0; }
+.t-body       { font-family: var(--font-sans); font-size: 19px; font-weight: 500; line-height: 1.5; letter-spacing: 0; }
+.t-caption    { font-family: var(--font-sans); font-size: 15px; font-weight: 500; line-height: 1.43; letter-spacing: 0; }
+.t-caption-st { font-family: var(--font-sans); font-size: 15px; font-weight: 600; line-height: 1.29; letter-spacing: 0; }
+.t-button     { font-family: var(--font-sans); font-size: 17px; font-weight: 600; line-height: 1; letter-spacing: 0.2px; }
+.t-nav        { font-family: var(--font-sans); font-size: 15px; font-weight: 600; line-height: 1; letter-spacing: 0.2px; }
+.t-fine       { font-family: var(--font-sans); font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: 0; }
+.t-dense-link { font-family: var(--font-sans); font-size: 16px; font-weight: 500; line-height: 2.2; letter-spacing: 0; }
+
+/* ---- Optional semantic element defaults -------------------------------- */
+h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.5px; color: var(--ink); }
+h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.3px; color: var(--ink); }
+h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.2px; color: var(--ink); }
+p  { font-family: var(--font-sans); font-size: 19px; font-weight: 500; line-height: 1.5; letter-spacing: 0; color: var(--body); }
+a  { color: var(--clay); text-decoration: none; }

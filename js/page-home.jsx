@@ -210,30 +210,6 @@ function QuizSection() {
   );
 }
 
-function Testimonials() {
-  const items = [
-    { quote: 'I had no idea where I wanted to go, only that I needed to leave. Laura found the place before I could name it.', name: 'Marta', detail: '9 nights, Portugal' },
-    { quote: 'Every day had room to breathe in it. Nothing to keep up with, and somehow I still saw everything I cared about.', name: 'Ines', detail: '6 nights, Slovenia' },
-    { quote: 'The safety notes alone were worth it. It was the first trip I took alone where I never once felt uneasy.', name: 'Robyn', detail: '12 nights, Japan' },
-  ];
-  return (
-    <section className="gtg-testi anchor" id="testimonials">
-      <div className="gtg-testi-head reveal">
-        <span className="gtg-eyebrow">Kind words</span>
-        <h2 className="gtg-section-title">Women who went alone</h2>
-      </div>
-      <div className="gtg-testi-grid">
-        {items.map((it, i) => (
-          <figure className="gtg-testi-card reveal" key={i} style={{ transitionDelay: (i * 90) + 'ms' }}>
-            <blockquote className="gtg-testi-quote">{it.quote}</blockquote>
-            <figcaption className="gtg-testi-by"><span className="gtg-testi-name">{it.name}</span><span className="gtg-testi-detail">{it.detail}</span></figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function AboutMe() {
   return (
     <section className="gtg-about anchor" id="about">
@@ -380,7 +356,7 @@ function HomeApp() {
       <HowItWorks />
       <PricingSection onContact={openContact} />
       <QuizSection />
-      <Testimonials />
+
       <AboutMe />
       <ContactSection />
       <Footer onStart={start} />

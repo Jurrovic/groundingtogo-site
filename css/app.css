@@ -235,6 +235,21 @@ body { overflow-x: hidden; }
 .gtg-pt-featured { background: var(--pearl); }
 .gtg-pt-text { font-size: 15px; color: var(--ink-muted-48); font-weight: 600; }
 .gtg-pt-row--last .gtg-pt-cell { border-bottom: 0; }
+   .gtg-pt-title--short { display: none; }
+   @media (max-width: 700px) {
+     .gtg-pricing { padding-left: 20px; padding-right: 20px; }
+     .gtg-pricing-tablewrap { overflow-x: visible; margin-top: 32px; }
+     .gtg-pricing-table { grid-template-columns: minmax(0, 1.9fr) repeat(3, minmax(0, 0.7fr)); min-width: 0; }
+     .gtg-pt-cell { padding: 10px 3px; }
+     .gtg-pt-head .gtg-pt-cell { padding: 14px 3px 10px; }
+     .gtg-pt-cell.gtg-pt-label { font-size: 12.5px; letter-spacing: -0.1px; line-height: 1.35; padding-left: 10px; padding-right: 6px; }
+     .gtg-pt-title--full { display: none; }
+     .gtg-pt-title--short { display: inline; font-size: 12px; }
+     .gtg-pt-sub { display: none; }
+     .gtg-pt-flag { font-size: 8px; letter-spacing: 0.5px; margin-bottom: 4px; }
+     .gtg-pt-cell svg { width: 15px; height: 15px; }
+     .gtg-pt-text { font-size: 11px; }
+   }
 .gtg-pricing-cards { max-width: 1000px; margin: 56px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .gtg-pricing-card { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: clamp(26px, 3vw, 34px); }
 .gtg-pricing-card--featured { border-color: var(--clay); background: var(--pearl); }

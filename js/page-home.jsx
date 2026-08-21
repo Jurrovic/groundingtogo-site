@@ -7,11 +7,7 @@ function HomeHero({ onStart }) {
       <div className="hx-frame hx-frame--sky reveal">
         <video className="hx-video" autoPlay muted loop playsInline src="assets/hero-video.mp4"></video>
         <div className="hx-scrim hx-scrim--photo" />
-        <div className="hx-inner hx-inner--sky">
-          <div className="hx-bottom hx-bottom--sky">
-            <a className="gtg-pill hx-bottom-btn" href="#quiz">Take the Quiz</a>
-          </div>
-        </div>
+   <div className="hx-inner hx-inner--sky"></div>
       </div>
     </section>
   );

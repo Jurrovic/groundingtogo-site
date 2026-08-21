@@ -127,9 +127,22 @@ function PricingSection({ onContact }) {
         <div className="gtg-pricing-table">
           <div className="gtg-pt-row gtg-pt-head">
             <div className="gtg-pt-cell gtg-pt-label"></div>
-            <div className="gtg-pt-cell"><span className="gtg-pt-title">Solo Trip Direction Package<br/></span><span className="gtg-pt-sub">60-min call</span></div>
-            <div className="gtg-pt-cell gtg-pt-featured"><span className="gtg-pt-flag">Most chosen</span><span className="gtg-pt-title">Grounding to Go<br/>full package</span><span className="gtg-pt-sub"></span></div>
-            <div className="gtg-pt-cell"><span className="gtg-pt-title">On your own</span><span className="gtg-pt-sub">DIY</span></div>
+   <div className="gtg-pt-cell">
+     <span className="gtg-pt-title gtg-pt-title--full">Solo Trip Direction Package<br/></span>
+     <span className="gtg-pt-title gtg-pt-title--short">Solo call</span>
+     <span className="gtg-pt-sub">60-min call</span>
+   </div>
+   <div className="gtg-pt-cell gtg-pt-featured">
+     <span className="gtg-pt-flag">Most chosen</span>
+     <span className="gtg-pt-title gtg-pt-title--full">Grounding to Go<br/>full package</span>
+     <span className="gtg-pt-title gtg-pt-title--short">Full package</span>
+     <span className="gtg-pt-sub"></span>
+   </div>
+   <div className="gtg-pt-cell">
+     <span className="gtg-pt-title gtg-pt-title--full">On your own</span>
+     <span className="gtg-pt-title gtg-pt-title--short">DIY</span>
+     <span className="gtg-pt-sub">DIY</span>
+   </div>
           </div>
           {rows.map((r, i) => (
             <div className={'gtg-pt-row' + (i === rows.length - 1 ? ' gtg-pt-row--last' : '')} key={r.label}>

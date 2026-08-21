@@ -8,7 +8,6 @@ function Footer({ onStart, closer = true }) {
     { h: 'Grounding to Go', links: [
         { t: 'Take the quiz', h: 'index.html#quiz' },
         { t: 'How it works', h: 'index.html#how' },
-        { t: 'Testimonials', h: 'index.html#about' },
       ] },
     { h: 'Company', links: [
         { t: 'About me', h: 'index.html#about' },

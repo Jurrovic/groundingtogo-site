@@ -128,7 +128,10 @@ body { overflow-x: hidden; }
 /* =========================================================================
    QUIZ
    ========================================================================= */
-.gtg-quizsec { background: var(--canvas); padding: clamp(72px, 10vh, 120px) 24px; position: relative; }
+   /* Floating quiz button — fixed to the viewport so it stays on screen for the
+      whole page, at every scroll position. */
+   .gtg-floatquiz { position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 45; box-shadow: var(--shadow-image); }
+   @media (max-width: 480px) { .gtg-floatquiz { padding: 12px 20px; font-size: 15px; } }.gtg-quizsec { background: var(--canvas); padding: clamp(72px, 10vh, 120px) 24px; position: relative; }
 .gtg-quizsec--sand { background: var(--sand); }
 .gtg-quiz { max-width: 880px; margin: 0 auto; background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: clamp(28px, 4vw, 56px); }
 .gtg-quiz-head { text-align: center; }

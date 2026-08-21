@@ -355,7 +355,14 @@ function ContactSection() {
     </section>
   );
 }
-
+   /* Floating "Take the Quiz" pill — fixed on screen for the entire page, so
+      it's always available no matter where you've scrolled to. This is now the
+      only quiz CTA on the hero (the hero's own button was removed). */
+   function FloatingQuizButton() {
+     return (
+       <a className="gtg-pill gtg-floatquiz" href="#quiz">Take the Quiz</a>
+     );
+   }
 function HomeApp() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [modal, setModal] = useState({ open: false, trip: null });
@@ -367,6 +374,7 @@ function HomeApp() {
     <>
       <GlobalNav active="home" onStart={start} onContact={openContact} />
       <HomeHero onStart={start} />
+            <FloatingQuizButton />
       <WhoItsFor statementFontSize={t.statementFontSize} />
       <HowItWorks />
       <PricingSection onContact={openContact} />

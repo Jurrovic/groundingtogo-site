@@ -355,6 +355,7 @@ function ContactSection() {
     </section>
   );
 }
+
    /* Floating "Take the Quiz" pill — fixed on screen for the entire page, so
       it's always available no matter where you've scrolled to. This is now the
       only quiz CTA on the hero (the hero's own button was removed). */

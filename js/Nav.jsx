@@ -41,7 +41,7 @@ function GlobalNav({ active, onStart, onContact }) {
           {links.map((l) => (
             <a key={l.id} href={l.href} className={active === l.id ? 'is-active' : ''}>{l.label}</a>
           ))}
-          <button className="gtg-pill" onClick={() => { setOpen(false); onStart && onStart(); }}>Start your reset</button>
+          <button className="gtg-pill" onClick={() => { setOpen(false); onContact && onContact(); }}>Get in touch</button>
         </div>
       )}
     </header>

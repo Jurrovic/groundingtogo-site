@@ -285,7 +285,15 @@ body { overflow-x: hidden; }
 .gtg-pricing-card h3 { font-family: var(--font-display); font-size: 24px; font-weight: 500; margin: 8px 0 0; }
 .gtg-pricing-price { font-family: var(--font-display); font-size: 34px; font-weight: 500; color: var(--ink); margin: 14px 0 0; }
 .gtg-pricing-price span { font-size: 16px; font-weight: 400; color: var(--ink-muted-48); }
+/* Struck-through original price next to the current discounted price. */
+.gtg-pricing-price .gtg-pricing-was { font-size: 20px; font-weight: 400; color: var(--ink-muted-48); text-decoration: line-through; margin-right: 10px; }
+.gtg-pricing-price .gtg-pricing-now { font-size: 34px; font-weight: 500; color: var(--ink); }
 .gtg-pricing-fine { font-size: 15.5px; color: var(--ink-muted-48); margin: 6px 0 0; }
+/* Three flat, non-discounted trip-length tiers for the full package. */
+.gtg-pricing-tiers { display: flex; gap: 28px; flex-wrap: wrap; margin: 14px 0 0; }
+.gtg-pricing-tier { display: flex; flex-direction: column; gap: 2px; }
+.gtg-pricing-tier-days { font-size: 13px; letter-spacing: 0.2px; color: var(--ink-muted-48); }
+.gtg-pricing-tier-price { font-family: var(--font-display); font-size: 26px; font-weight: 500; color: var(--ink); }
 .gtg-pricing-card p.gtg-pricing-body { font-size: 17.5px; letter-spacing: -0.25px; line-height: 1.55; color: var(--ink-muted-80); margin: 16px 0 0; }
 .gtg-pricing-card .gtg-pill { margin-top: 24px; }
 .gtg-pill--ghost-clay { background: transparent; color: var(--clay); border: 1.5px solid var(--hairline); }

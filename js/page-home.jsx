@@ -224,7 +224,7 @@ function PricingSection({ onContact }) {
           <div className="gtg-pricing-price">&euro;35</div>
           <p className="gtg-pricing-fine"></p>
           <p className="gtg-pricing-highlight">If you do decide to book the GTG full package afterwards, your purchase amount will be deducted from your final price.</p>
-          <a className="gtg-pill" href="#quiz">Book now</a>
+          <button className="gtg-pill" onClick={onContact}>Book now</button>
         </div>
       </div>
     </section>

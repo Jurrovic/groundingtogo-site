@@ -12,12 +12,9 @@ function Footer({ onStart, closer = true }) {
     { h: 'Company', links: [
         { t: 'About me', h: 'index.html#about' },
         { t: 'Contact', h: 'index.html#contact' },
-        { t: 'Book a call', h: 'index.html#contact' },
       ] },
     { h: 'Support', links: [
-        { t: 'Book a call', h: 'index.html#contact' },
         { t: 'Privacy', h: 'privacy.html' },
-        { t: 'Terms', h: 'index.html#contact' },
       ] },
   ];
   return (

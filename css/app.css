@@ -61,9 +61,22 @@ body { overflow-x: hidden; }
    INSET HERO FRAME (reference structure, reskinned warm)
    ========================================================================= */
 .hx { padding: 0; background: var(--canvas); }
-.hx-frame { position: relative; border-radius: 0; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; }
-.hx-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center center; background:  var(--canvas); }
+.hx-frame { position: relative; border-radius: 0; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; background: var(--canvas); }
 .hx-bg { position: absolute; inset: 0; transform: scale(1.01); }
+/* The video is a fixed 16:9 clip with its headline baked into the footage, so
+   it must never be cropped. .hx-media-box is sized to the largest 16:9 box
+   that fits inside the frame (width-driven normally; max-height steps in and
+   the aspect-ratio shrinks width to match on very short/wide frames) — the
+   same "contain" math, just applied to a wrapper box instead of the video
+   itself. That lets .hx-video use object-fit: cover safely (the box is
+   already an exact 16:9 match, so nothing gets cropped) and, crucially, keeps
+   the dark .hx-scrim gradient confined to that same box. Any leftover space
+   in .hx-frame outside the box is the frame's own plain canvas background —
+   the same flat color as the section below it — instead of scrim-darkened
+   video background, so the letterbox bars read as part of the page rather
+   than a tinted edge. */
+.hx-media-box { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; }
+.hx-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
 .hx-scrim { position: absolute; inset: 0; background:
     linear-gradient(195deg, rgba(20,17,13,0.42) 0%, rgba(20,17,13,0.12) 40%, rgba(20,17,13,0.0) 62%),
     linear-gradient(0deg, rgba(20,17,13,0.66) 0%, rgba(20,17,13,0.18) 40%, rgba(20,17,13,0.0) 70%); }
@@ -83,6 +96,11 @@ body { overflow-x: hidden; }
 .hx-frame--sky { min-height: 100vh; }
 /* Photo variant — centered white wordmark, no cream fade */
 .hx-frame--sky { min-height: 100vh; }
+/* On tall/narrow phone screens, a full 100vh frame is so much taller than the
+   16:9 video that containing it would leave huge empty bars above and below.
+   Shrink the frame itself to a closer, still-taller-than-video ratio instead,
+   so the whole clip shows with only a small letterbox, and pin the CTA to the
+   bottom-left, clear of the headline above and the photo's subject on the right. */
 @media (max-width: 700px), (max-aspect-ratio: 3/4) {
   .hx-frame--sky { min-height: 0; aspect-ratio: 4 / 3; }
   .hx-inner--sky { justify-content: flex-end; }
@@ -128,10 +146,11 @@ body { overflow-x: hidden; }
 /* =========================================================================
    QUIZ
    ========================================================================= */
-   /* Floating quiz button — fixed to the viewport so it stays on screen for the
-      whole page, at every scroll position. */
-   .gtg-floatquiz { position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 45; box-shadow: var(--shadow-image); }
-   @media (max-width: 480px) { .gtg-floatquiz { padding: 12px 20px; font-size: 15px; } }.gtg-quizsec { background: var(--canvas); padding: clamp(72px, 10vh, 120px) 24px; position: relative; }
+/* Floating quiz button — fixed to the viewport so it stays on screen for the
+   whole page, at every scroll position. */
+.gtg-floatquiz { position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 45; box-shadow: var(--shadow-image); }
+@media (max-width: 480px) { .gtg-floatquiz { padding: 12px 20px; font-size: 15px; } }
+.gtg-quizsec { background: var(--canvas); padding: clamp(72px, 10vh, 120px) 24px; position: relative; }
 .gtg-quizsec--sand { background: var(--sand); }
 .gtg-quiz { max-width: 880px; margin: 0 auto; background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: clamp(28px, 4vw, 56px); }
 .gtg-quiz-head { text-align: center; }
@@ -238,21 +257,28 @@ body { overflow-x: hidden; }
 .gtg-pt-featured { background: var(--pearl); }
 .gtg-pt-text { font-size: 15px; color: var(--ink-muted-48); font-weight: 600; }
 .gtg-pt-row--last .gtg-pt-cell { border-bottom: 0; }
-   .gtg-pt-title--short { display: none; }
-   @media (max-width: 700px) {
-     .gtg-pricing { padding-left: 20px; padding-right: 20px; }
-     .gtg-pricing-tablewrap { overflow-x: visible; margin-top: 32px; }
-     .gtg-pricing-table { grid-template-columns: minmax(0, 1.9fr) repeat(3, minmax(0, 0.7fr)); min-width: 0; }
-     .gtg-pt-cell { padding: 10px 3px; }
-     .gtg-pt-head .gtg-pt-cell { padding: 14px 3px 10px; }
-     .gtg-pt-cell.gtg-pt-label { font-size: 12.5px; letter-spacing: -0.1px; line-height: 1.35; padding-left: 10px; padding-right: 6px; }
-     .gtg-pt-title--full { display: none; }
-     .gtg-pt-title--short { display: inline; font-size: 12px; }
-     .gtg-pt-sub { display: none; }
-     .gtg-pt-flag { font-size: 8px; letter-spacing: 0.5px; margin-bottom: 4px; }
-     .gtg-pt-cell svg { width: 15px; height: 15px; }
-     .gtg-pt-text { font-size: 11px; }
-   }
+/* Short header labels: hidden on desktop, shown only under the mobile
+   breakpoint below, where the full package names would never fit a narrow
+   icon column. */
+.gtg-pt-title--short { display: none; }
+/* Below 700px the table stays a real side-by-side table (label column +
+   3 narrow result columns) instead of switching to stacked cards, so rows
+   are still readable left-to-right like a comparison. Cells, fonts and
+   headers shrink to fit; the desktop markup and column data are unchanged. */
+@media (max-width: 700px) {
+  .gtg-pricing { padding-left: 20px; padding-right: 20px; }
+  .gtg-pricing-tablewrap { overflow-x: visible; margin-top: 32px; }
+  .gtg-pricing-table { grid-template-columns: minmax(0, 1.9fr) repeat(3, minmax(0, 0.7fr)); min-width: 0; }
+  .gtg-pt-cell { padding: 10px 3px; }
+  .gtg-pt-head .gtg-pt-cell { padding: 14px 3px 10px; }
+  .gtg-pt-cell.gtg-pt-label { font-size: 12.5px; letter-spacing: -0.1px; line-height: 1.35; padding-left: 10px; padding-right: 6px; }
+  .gtg-pt-title--full { display: none; }
+  .gtg-pt-title--short { display: inline; font-size: 12px; }
+  .gtg-pt-sub { display: none; }
+  .gtg-pt-flag { font-size: 8px; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .gtg-pt-cell svg { width: 15px; height: 15px; }
+  .gtg-pt-text { font-size: 11px; }
+}
 .gtg-pricing-cards { max-width: 1000px; margin: 56px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .gtg-pricing-card { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: clamp(26px, 3vw, 34px); }
 .gtg-pricing-card--featured { border-color: var(--clay); background: var(--pearl); }
@@ -293,6 +319,7 @@ body { overflow-x: hidden; }
 .gtg-itinerary-cta { text-align: center; margin: 40px auto 0; font-family: var(--font-display); font-size: clamp(19px, 2.4vw, 24px); color: var(--ink); max-width: 640px; font-weight: 500; }
 .gtg-itinerary-cta a, .gtg-itinerary-cta button.linklike { color: var(--clay); text-decoration: underline; cursor: pointer; background: none; border: 0; font: inherit; padding: 0; }
 @media (max-width: 600px) { .gtg-day-row { grid-template-columns: 1fr; gap: 4px; } }
+
 
 /* =========================================================================
    ABOUT

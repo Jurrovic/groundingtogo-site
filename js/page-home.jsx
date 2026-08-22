@@ -208,7 +208,20 @@ function PricingSection({ onContact }) {
             <li>Most beautiful photo spots</li>
           </ul>
           <p className="gtg-pricing-addon"><strong>Optional add-on:</strong> a private printable online diary with prompts to track your experience.</p>
-          <div className="gtg-pricing-price">&euro;40 <span>/ day</span></div>
+          <div className="gtg-pricing-tiers">
+            <div className="gtg-pricing-tier">
+              <span className="gtg-pricing-tier-days">3 days</span>
+              <span className="gtg-pricing-tier-price">&euro;169</span>
+            </div>
+            <div className="gtg-pricing-tier">
+              <span className="gtg-pricing-tier-days">5 days</span>
+              <span className="gtg-pricing-tier-price">&euro;229</span>
+            </div>
+            <div className="gtg-pricing-tier">
+              <span className="gtg-pricing-tier-days">7 days</span>
+              <span className="gtg-pricing-tier-price">&euro;299</span>
+            </div>
+          </div>
           <p className="gtg-pricing-fine">The plan comes in an interactive online format and a printable PDF. Booking the flights and accommodation is not included.</p>
           <button className="gtg-pill gtg-pill--ghost-clay" onClick={onContact}>Book now</button>
         </div>
@@ -221,7 +234,10 @@ function PricingSection({ onContact }) {
             <li>A written summary of the call</li>
             <li>A private printable online diary with prompts to help you decide on your next steps</li>
           </ul>
-          <div className="gtg-pricing-price">&euro;35</div>
+          <div className="gtg-pricing-price">
+            <span className="gtg-pricing-was">&euro;79</span>
+            <span className="gtg-pricing-now">&euro;55</span>
+          </div>
           <p className="gtg-pricing-fine"></p>
           <p className="gtg-pricing-highlight">If you do decide to book the GTG full package afterwards, your purchase amount will be deducted from your final price.</p>
           <button className="gtg-pill" onClick={onContact}>Book now</button>

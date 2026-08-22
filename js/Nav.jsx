@@ -3,6 +3,7 @@ function GlobalNav({ active, onStart, onContact }) {
   const [open, setOpen] = React.useState(false);
   const links = [
     { id: 'home', label: 'Home', href: 'index.html' },
+    { id: 'how', label: 'How it works', href: 'index.html#how' },
     { id: 'blog', label: 'Blog', href: 'blog.html' },
     { id: 'about', label: 'About', href: 'index.html#about' },
     { id: 'contact', label: 'Contact', href: 'index.html#contact' },

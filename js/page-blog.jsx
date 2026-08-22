@@ -610,7 +610,7 @@ function BlogApp() {
                 return <p className="gtg-reader-p" key={i}>{b.p}</p>;
               })}
               <div className="gtg-reader-cta">
-                <a className="gtg-pill" href="index.html#contact">Start your reset <Icon name="arrowRight" size={16} stroke={1.9} /></a>
+                <a className="gtg-pill" href="index.html#quiz">Take the Quiz <Icon name="arrowRight" size={16} stroke={1.9} /></a>
               </div>
             </div>
           </div>

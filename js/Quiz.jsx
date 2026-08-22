@@ -384,7 +384,11 @@ function Quiz() {
       CE('button',{className:'gtg-pill',type:'submit',style:{width:'100%',justifyContent:'center'}},'See my results →'),
       CE('button',{type:'button',onClick:function(){sendQuizToAirtable(tags,'',wb_result_data(tags));setStep(TOTAL+2);},style:{display:'block',margin:'12px auto 0',background:'none',border:'none',color:'var(--ink-muted-48)',fontSize:12.5,cursor:'pointer',textDecoration:'underline'}},'or skip to the results now'),
       CE('button',{type:'button',onClick:back,style:{marginTop:12,background:'none',border:'none',color:'var(--ink-muted-80)',fontSize:13,cursor:'pointer',textDecoration:'underline'}},'← Back'),
-      CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:14,lineHeight:1.5}},"No newsletter, no spam. Just your results and one follow-up if you'd like to chat.")
+      CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:14,lineHeight:1.5}},"No newsletter, no spam. Just your results and one follow-up if you'd like to chat."),
+      CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:8,lineHeight:1.5}},
+        "If you enter your email, I'll be able to see your results too — which can help me get a head start if we end up planning your next trip together. ",
+        CE('a',{href:'privacy.html',style:{color:'var(--ink-muted-48)'}},'Privacy Policy')
+      )
     )
   );
 

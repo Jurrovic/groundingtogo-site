@@ -16,7 +16,7 @@ function Footer({ onStart, closer = true }) {
       ] },
     { h: 'Support', links: [
         { t: 'Book a call', h: 'index.html#contact' },
-        { t: 'Privacy', h: 'index.html#contact' },
+        { t: 'Privacy', h: 'privacy.html' },
         { t: 'Terms', h: 'index.html#contact' },
       ] },
   ];
@@ -57,7 +57,7 @@ function Footer({ onStart, closer = true }) {
         </div>
         <div className="gtg-footer-legal">
           <span>{'\u00a9 2026 GroundingtoGo. Personalised solo travel planning for women who want to travel alone \u2014 but aren\u2019t sure where to go, what to expect, or how to start.'}</span>
-          <span>{'Privacy \u00b7 Terms \u00b7 Cookies'}</span>
+          <span><a href="privacy.html" style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy</a>{' \u00b7 Terms \u00b7 Cookies'}</span>
         </div>
       </footer>
     </>

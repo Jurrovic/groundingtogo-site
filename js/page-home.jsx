@@ -398,6 +398,29 @@ function HomeApp() {
   const start = () => setModal({ open: true, trip: null });
   const openContact = () => setContactOpen(true);
   useReveal();
+
+  // Land on the right section when arriving with a #hash from another page
+  // (e.g. clicking "How it works" in the nav from the blog) — on first load
+  // the browser tries to jump to it before React has rendered the page, so
+  // the native scroll misses and we have to do it ourselves once mounted.
+  React.useEffect(() => {
+    const id = (location.hash || '').replace('#', '');
+    if (!id) return;
+    // The page transpiles its JSX in the browser on every load, so how long
+    // the target section takes to exist in the DOM varies — poll briefly
+    // instead of assuming a fixed delay is always enough.
+    let tries = 0;
+    const tryScroll = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else if (tries++ < 40) {
+        setTimeout(tryScroll, 100);
+      }
+    };
+    setTimeout(tryScroll, 100);
+  }, []);
+
   return (
     <>
       <GlobalNav active="home" onStart={start} onContact={openContact} />

@@ -452,11 +452,11 @@ function Quiz() {
         cSent
           ? CE('div',null,
               CE('h4',{style:{fontFamily:'var(--font-serif)',fontSize:'clamp(20px,2.4vw,26px)',color:'var(--ink)',margin:'0 0 10px',lineHeight:1.3}},"Thank you — we'll be in touch soon."),
-              CE('p',{style:{fontSize:'clamp(14px,1.5vw,16px)',color:'var(--ink-muted-80)',margin:0,lineHeight:1.65,maxWidth:520}},"Your details are with us. We'll reach out shortly to arrange your free consultation and talk through your options.")
+              CE('p',{style:{fontSize:'clamp(14px,1.5vw,16px)',color:'var(--ink-muted-80)',margin:0,lineHeight:1.65,maxWidth:520}},"Your details are with us. We'll reach out shortly to talk through your options.")
             )
           : CE('div',null,
               CE('h4',{style:{fontFamily:'var(--font-serif)',fontSize:'clamp(20px,2.4vw,26px)',color:'var(--ink)',margin:'0 0 10px',lineHeight:1.3}},"Sounds good? Let's make it happen for you."),
-              CE('p',{style:{fontSize:'clamp(14px,1.5vw,16px)',color:'var(--ink-muted-80)',margin:'0 0 24px',lineHeight:1.65,maxWidth:520}},"Leave your details here so we can arrange a free consultation and discuss your options."),
+              CE('p',{style:{fontSize:'clamp(14px,1.5vw,16px)',color:'var(--ink-muted-80)',margin:'0 0 24px',lineHeight:1.65,maxWidth:520}},"Leave your details here if you would like to discuss your options."),
               CE('form',{onSubmit:onContact},
                 field('gtg-cname','Name','text',cName,setCName,{ph:'Your name'}),
                 field('gtg-cemail','Email','email',cEmail,setCEmail,{ph:'you@email.com'}),

@@ -31,7 +31,7 @@ function PrivacyPage() {
         <ul className="gtg-reader-ul">
           <li><strong>Your quiz answers.</strong> The choices you make while taking the wellbeing quiz, so I can put together your personalised trip match.</li>
           <li><strong>Your email address</strong>, if you choose to enter it at the end of the quiz to receive your results. This step is optional &mdash; you can skip it and still see your results, in which case your quiz answers are kept without anything that identifies you.</li>
-          <li><strong>Your name, email, and (optional) WhatsApp number and message</strong>, if you request a free consultation from the quiz results page.</li>
+          <li><strong>Your name, email, and (optional) WhatsApp number and message</strong>, if you request a consultation from the quiz results page.</li>
           <li><strong>Your name, email, planned destination, travel dates, and message</strong>, if you get in touch through a contact form or the &ldquo;Get in touch&rdquo; pop-up.</li>
         </ul>
         <p className="gtg-reader-p">I don&rsquo;t collect payment details, government ID, or any sensitive personal information through this site.</p>

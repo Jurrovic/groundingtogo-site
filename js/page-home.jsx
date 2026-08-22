@@ -1,13 +1,47 @@
 /* Home page — inset hero, who it's for, how it works, pricing, quiz, about, itinerary preview, contact */
 const { useState } = React;
 
+/* The hero video is a fixed 16:9 clip with its headline baked into the
+   footage, so it must never be cropped. .hx-media-box wraps the video and
+   its dark .hx-scrim overlay together, and this hook measures the frame and
+   sizes that box to the largest 16:9 rectangle that fits inside it — the
+   same math object-fit: contain uses, just applied to a plain box instead of
+   the video alone, so the scrim darkens only the video's actual picture and
+   never spills into the letterbox bars around it. Those bars are then just
+   .hx-frame's own plain canvas background showing through, matching the
+   section below the hero instead of reading as a tinted edge. */
+function useContainedMediaSize(frameRef) {
+  const [size, setSize] = React.useState(null);
+  React.useLayoutEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const RATIO = 16 / 9;
+    const update = () => {
+      const w = el.clientWidth, h = el.clientHeight;
+      if (!w || !h) return;
+      let mw = w, mh = w / RATIO;
+      if (mh > h) { mh = h; mw = h * RATIO; }
+      setSize({ width: Math.round(mw), height: Math.round(mh) });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [frameRef]);
+  return size;
+}
+
 function HomeHero({ onStart }) {
+  const frameRef = React.useRef(null);
+  const mediaSize = useContainedMediaSize(frameRef);
   return (
     <section className="hx">
-      <div className="hx-frame hx-frame--sky reveal">
-        <video className="hx-video" autoPlay muted loop playsInline src="assets/hero-video.mp4"></video>
-        <div className="hx-scrim hx-scrim--photo" />
-   <div className="hx-inner hx-inner--sky"></div>
+      <div className="hx-frame hx-frame--sky reveal" ref={frameRef}>
+        <div className="hx-media-box" style={mediaSize ? { width: mediaSize.width, height: mediaSize.height } : undefined}>
+          <video className="hx-video" autoPlay muted loop playsInline src="assets/hero-video.mp4"></video>
+          <div className="hx-scrim hx-scrim--photo" />
+        </div>
+        <div className="hx-inner hx-inner--sky"></div>
       </div>
     </section>
   );
@@ -123,22 +157,22 @@ function PricingSection({ onContact }) {
         <div className="gtg-pricing-table">
           <div className="gtg-pt-row gtg-pt-head">
             <div className="gtg-pt-cell gtg-pt-label"></div>
-   <div className="gtg-pt-cell">
-     <span className="gtg-pt-title gtg-pt-title--full">Solo Trip Direction Package<br/></span>
-     <span className="gtg-pt-title gtg-pt-title--short">Solo call</span>
-     <span className="gtg-pt-sub">60-min call</span>
-   </div>
-   <div className="gtg-pt-cell gtg-pt-featured">
-     <span className="gtg-pt-flag">Most chosen</span>
-     <span className="gtg-pt-title gtg-pt-title--full">Grounding to Go<br/>full package</span>
-     <span className="gtg-pt-title gtg-pt-title--short">Full package</span>
-     <span className="gtg-pt-sub"></span>
-   </div>
-   <div className="gtg-pt-cell">
-     <span className="gtg-pt-title gtg-pt-title--full">On your own</span>
-     <span className="gtg-pt-title gtg-pt-title--short">DIY</span>
-     <span className="gtg-pt-sub">DIY</span>
-   </div>
+            <div className="gtg-pt-cell">
+              <span className="gtg-pt-title gtg-pt-title--full">Solo Trip Direction Package<br/></span>
+              <span className="gtg-pt-title gtg-pt-title--short">Solo call</span>
+              <span className="gtg-pt-sub">60-min call</span>
+            </div>
+            <div className="gtg-pt-cell gtg-pt-featured">
+              <span className="gtg-pt-flag">Most chosen</span>
+              <span className="gtg-pt-title gtg-pt-title--full">Grounding to Go<br/>full package</span>
+              <span className="gtg-pt-title gtg-pt-title--short">Full package</span>
+              <span className="gtg-pt-sub"></span>
+            </div>
+            <div className="gtg-pt-cell">
+              <span className="gtg-pt-title gtg-pt-title--full">On your own</span>
+              <span className="gtg-pt-title gtg-pt-title--short">DIY</span>
+              <span className="gtg-pt-sub">DIY</span>
+            </div>
           </div>
           {rows.map((r, i) => (
             <div className={'gtg-pt-row' + (i === rows.length - 1 ? ' gtg-pt-row--last' : '')} key={r.label}>
@@ -332,14 +366,15 @@ function ContactSection() {
   );
 }
 
-   /* Floating "Take the Quiz" pill — fixed on screen for the entire page, so
-      it's always available no matter where you've scrolled to. This is now the
-      only quiz CTA on the hero (the hero's own button was removed). */
-   function FloatingQuizButton() {
-     return (
-       <a className="gtg-pill gtg-floatquiz" href="#quiz">Take the Quiz</a>
-     );
-   }
+/* Floating "Take the Quiz" pill — fixed on screen for the entire page, so
+   it's always available no matter where you've scrolled to. This is now the
+   only quiz CTA on the hero (the hero's own button was removed). */
+function FloatingQuizButton() {
+  return (
+    <a className="gtg-pill gtg-floatquiz" href="#quiz">Take the Quiz</a>
+  );
+}
+
 function HomeApp() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [modal, setModal] = useState({ open: false, trip: null });
@@ -351,12 +386,11 @@ function HomeApp() {
     <>
       <GlobalNav active="home" onStart={start} onContact={openContact} />
       <HomeHero onStart={start} />
-            <FloatingQuizButton />
+      <FloatingQuizButton />
       <WhoItsFor statementFontSize={t.statementFontSize} />
       <HowItWorks />
       <PricingSection onContact={openContact} />
       <QuizSection />
-
       <AboutMe />
       <ContactSection />
       <Footer onStart={start} />

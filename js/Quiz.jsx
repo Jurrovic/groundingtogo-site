@@ -374,7 +374,7 @@ function Quiz() {
     CE('div',{className:'gtg-quiz-kicker',style:{justifyContent:'center',marginBottom:16}},dot),
     CE('h3',{style:{fontFamily:'var(--font-serif)',fontSize:'clamp(22px,2.8vw,28px)',color:'var(--ink)',marginBottom:12}},'Your results are ready.'),
     CE('p',{style:{fontSize:15,color:'var(--ink-muted-80)',maxWidth:420,margin:'0 auto 28px',lineHeight:1.65}},
-      "Drop your email and I'll send your personalised trip match — along with a few ideas to get you started."),
+      "Drop your email below if you want to see and discuss your results, or skip straight to the results and stay anonymous."),
     CE('form',{onSubmit:onEmail,style:{maxWidth:380,margin:'0 auto'}},
       CE('div',{style:{textAlign:'left',marginBottom:16}},
         CE('label',{htmlFor:'gtg-qemail',style:{display:'block',fontSize:13,fontWeight:600,color:'var(--ink)',marginBottom:6,letterSpacing:'0.04em',textTransform:'uppercase'}},'Your email'),

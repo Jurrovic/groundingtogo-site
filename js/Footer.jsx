@@ -2,7 +2,7 @@
 function Footer({ onStart, closer = true }) {
   const cols = [
     { h: 'From the blog', links: [
-        { t: 'Your first solo trip', h: 'blog.html#first-solo-trip' },
+        { t: 'Your first solo trip', h: 'blog/first-solo-trip/' },
         { t: 'All articles', h: 'blog.html' },
       ] },
     { h: 'Grounding to Go', links: [

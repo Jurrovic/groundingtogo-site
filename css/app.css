@@ -479,7 +479,7 @@ body { overflow-x: hidden; }
 .gtg-blog-featured:hover .gtg-blog-featured-media .gtg-photo { transform: scale(1.03); }
 .gtg-blog-featured:hover .gtg-blog-readlink svg { transform: translateX(4px); }
 .gtg-blog-flag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay); margin-bottom: 0; }
-.gtg-blog-featured-title { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; line-height: 1.08; letter-spacing: -0.6px; margin: 0; text-wrap: balance; }
+.gtg-blog-featured-title { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; line-height: 1.08; letter-spacing: -0.6px; margin: 0; text-wrap: balance; color: var(--ink); }
 .gtg-blog-featured-excerpt { font-size: 18px; line-height: 1.55; color: var(--ink-muted-80); margin: 18px 0 24px; max-width: 46ch; }
 
 /* Grid */
@@ -492,7 +492,7 @@ body { overflow-x: hidden; }
 .gtg-blog-card-media .gtg-photo { transition: transform 600ms var(--ease-quiet); }
 .gtg-blog-card:hover .gtg-blog-card-media .gtg-photo { transform: scale(1.04); }
 .gtg-blog-card:hover .gtg-blog-readlink svg { transform: translateX(4px); }
-.gtg-blog-card-title { font-family: var(--font-display); font-size: clamp(20px, 1.7vw, 25px); font-weight: 500; line-height: 1.15; letter-spacing: -0.3px; margin: 12px 0 0; text-wrap: pretty; }
+.gtg-blog-card-title { font-family: var(--font-display); font-size: clamp(20px, 1.7vw, 25px); font-weight: 500; line-height: 1.15; letter-spacing: -0.3px; margin: 12px 0 0; text-wrap: pretty; color: var(--ink); }
 .gtg-blog-card-excerpt { font-size: 15.5px; line-height: 1.55; color: var(--ink-muted-80); margin: 12px 0 16px; }
 .gtg-blog-card .gtg-blog-readlink { margin-top: auto; font-size: 14px; }
 

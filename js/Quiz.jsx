@@ -292,6 +292,7 @@ function Quiz() {
   var _cm=React.useState('');   var cMsg=_cm[0],setCMsg=_cm[1];
   var _cerr=React.useState(''); var cErr=_cerr[0],setCErr=_cerr[1];
   var _csent=React.useState(false); var cSent=_csent[0],setCSent=_csent[1];
+  var _cbusy=React.useState(false); var cBusy=_cbusy[0],setCBusy=_cbusy[1];
 
   var q=(step>=1&&step<=TOTAL)?GTG_WB_QUESTIONS[step-1]:null;
 
@@ -301,18 +302,35 @@ function Quiz() {
     setTimeout(function(){setLive(null);if(step<TOTAL)setStep(step+1);else setStep(TOTAL+1);},240);
   }
   function back(){if(step>1&&step<=TOTAL+1)setStep(step-1);}
-  function onEmail(e){e.preventDefault();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setEErr('Please enter a valid email.');return;}sendQuizToAirtable(tags,email,wb_result_data(tags));setStep(TOTAL+2);}
-  function onContact(e){
+  /* NOTE: these are declared async and awaited all the way through before
+     changing what's on screen. On mobile, an un-awaited fetch() that's still
+     in flight gets silently cancelled the moment the tab is backgrounded or
+     the phone locks \u2014 and since a "fire and forget" call let the UI show a
+     success state immediately, people would tap Send, see the confirmation,
+     switch away, and the request would never finish. Desktop tabs stay
+     active far more often, so the same code mostly got away with it there. */
+  async function onEmail(e){
+    e.preventDefault();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setEErr('Please enter a valid email.');return;}
+    setEErr('');
+    await sendQuizToAirtable(tags,email,wb_result_data(tags));
+    setStep(TOTAL+2);
+  }
+  async function onContact(e){
     e.preventDefault();
     if(!cName.trim()){setCErr('Please enter your name.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cEmail)){setCErr('Please enter a valid email.');return;}
-    setCErr('');
+    setCErr(''); setCBusy(true);
     var req={name:cName,email:cEmail,whatsapp:cWhats,message:cMsg};
-    sendRequestToAirtable(req,tags,wb_result_data(tags));
-    sendEnquiry({name:cName,email:cEmail,message:cMsg||'(no message)',destination:'',when:'',style:'Completed the quiz'},'Quiz results \u2014 consultation request');
-    setCSent(true);
+    var results=await Promise.all([
+      sendEnquiry({name:cName,email:cEmail,message:cMsg||'(no message)',destination:'',when:'',style:'Completed the quiz'},'Quiz results \u2014 consultation request'),
+      sendRequestToAirtable(req,tags,wb_result_data(tags))
+    ]);
+    setCBusy(false);
+    var mailRes=results[0];
+    if(mailRes.ok){setCSent(true);} else {setCErr(mailRes.error||'That didn\u2019t go through. Please email hello@groundingtogo.com directly.');}
   }
-  function retake(){setStep(0);setTags({});setEmail('');setEErr('');setCName('');setCEmail('');setCWhats('');setCMsg('');setCErr('');setCSent(false);}
+  function retake(){setStep(0);setTags({});setEmail('');setEErr('');setCName('');setCEmail('');setCWhats('');setCMsg('');setCErr('');setCSent(false);setCBusy(false);}
 
   var CE=React.createElement;
   var dot=CE('span',{className:'gtg-dot'});
@@ -382,7 +400,7 @@ function Quiz() {
         eErr?CE('p',{style:{color:'#c0392b',fontSize:13,marginTop:6}},eErr):null
       ),
       CE('button',{className:'gtg-pill',type:'submit',style:{width:'100%',justifyContent:'center'}},'See my results →'),
-      CE('button',{type:'button',onClick:function(){sendQuizToAirtable(tags,'',wb_result_data(tags));setStep(TOTAL+2);},style:{display:'block',margin:'12px auto 0',background:'none',border:'none',color:'var(--ink-muted-48)',fontSize:12.5,cursor:'pointer',textDecoration:'underline'}},'or skip to the results now'),
+      CE('button',{type:'button',onClick:async function(){await sendQuizToAirtable(tags,'',wb_result_data(tags));setStep(TOTAL+2);},style:{display:'block',margin:'12px auto 0',background:'none',border:'none',color:'var(--ink-muted-48)',fontSize:12.5,cursor:'pointer',textDecoration:'underline'}},'or skip to the results now'),
       CE('button',{type:'button',onClick:back,style:{marginTop:12,background:'none',border:'none',color:'var(--ink-muted-80)',fontSize:13,cursor:'pointer',textDecoration:'underline'}},'← Back'),
       CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:14,lineHeight:1.5}},"No newsletter, no spam. Just your results and one follow-up if you'd like to chat."),
       CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:8,lineHeight:1.5}},
@@ -463,7 +481,7 @@ function Quiz() {
                 field('gtg-cwhats','WhatsApp (optional)','tel',cWhats,setCWhats,{ph:'+00 000 000 000'}),
                 field('gtg-cmsg','Message (optional)','text',cMsg,setCMsg,{textarea:true,ph:"Anything you'd like us to know?"}),
                 cErr?CE('p',{style:{color:'#c0392b',fontSize:13,margin:'-4px 0 14px'}},cErr):null,
-                CE('button',{className:'gtg-pill',type:'submit'},'Send')
+                CE('button',{className:'gtg-pill',type:'submit',disabled:cBusy},cBusy?'Sending…':'Send')
               )
             )
       )

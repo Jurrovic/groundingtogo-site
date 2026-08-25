@@ -276,6 +276,15 @@ function wb_result_data(t) {
   };
 }
 
+/* Plain-text answer-by-answer summary, used in the "quiz completed" email to Laura. */
+function wb_answers_summary(t) {
+  return GTG_WB_QUESTIONS.map(function(q,i){
+    var tag=t['q'+(i+1)];
+    var opt=tag?q.opts.filter(function(o){return o.tag===tag;})[0]:null;
+    return (i+1)+'. '+q.prompt+' — '+(opt?opt.label:'(skipped)');
+  }).join('\n');
+}
+
 /* ---- Quiz component ---- */
 function Quiz() {
   var TOTAL=GTG_WB_QUESTIONS.length;
@@ -284,6 +293,7 @@ function Quiz() {
   var _l=React.useState(null);var live=_l[0],setLive=_l[1];
   var _e=React.useState('');  var email=_e[0],setEmail=_e[1];
   var _r=React.useState('');  var eErr=_r[0],setEErr=_r[1];
+  var _eb=React.useState(false); var eBusy=_eb[0],setEBusy=_eb[1];
 
   /* Consultation contact form (results page) */
   var _cn=React.useState('');   var cName=_cn[0],setCName=_cn[1];
@@ -312,8 +322,17 @@ function Quiz() {
   async function onEmail(e){
     e.preventDefault();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setEErr('Please enter a valid email.');return;}
-    setEErr('');
-    await sendQuizToAirtable(tags,email,wb_result_data(tags));
+    setEErr(''); setEBusy(true);
+    var result=wb_result_data(tags);
+    var msg=wb_answers_summary(tags)
+      +'\n\nSuggested — closer to home: '+result.near
+      +'\nSuggested — further afield: '+result.far
+      +'\nSuggested first move: '+result.actName;
+    await Promise.all([
+      sendQuizToAirtable(tags,email,result),
+      sendEnquiry({name:email,email:email,message:msg,destination:result.near,when:'',style:'Completed the quiz'},'Quiz completed — results emailed')
+    ]);
+    setEBusy(false);
     setStep(TOTAL+2);
   }
   async function onContact(e){
@@ -330,7 +349,7 @@ function Quiz() {
     var mailRes=results[0];
     if(mailRes.ok){setCSent(true);} else {setCErr(mailRes.error||'That didn\u2019t go through. Please email hello@groundingtogo.com directly.');}
   }
-  function retake(){setStep(0);setTags({});setEmail('');setEErr('');setCName('');setCEmail('');setCWhats('');setCMsg('');setCErr('');setCSent(false);setCBusy(false);}
+  function retake(){setStep(0);setTags({});setEmail('');setEErr('');setEBusy(false);setCName('');setCEmail('');setCWhats('');setCMsg('');setCErr('');setCSent(false);setCBusy(false);}
 
   var CE=React.createElement;
   var dot=CE('span',{className:'gtg-dot'});
@@ -399,8 +418,8 @@ function Quiz() {
         CE('input',{id:'gtg-qemail',type:'email',value:email,onChange:function(ev){setEmail(ev.target.value);setEErr('');},placeholder:'you@email.com',style:{width:'100%',boxSizing:'border-box',padding:'12px 14px',border:'1.5px solid '+(eErr?'#c0392b':'var(--hairline)'),borderRadius:'var(--r-md)',fontSize:15,fontFamily:'var(--font-sans)',background:'var(--white)',color:'var(--ink)',outline:'none'}}),
         eErr?CE('p',{style:{color:'#c0392b',fontSize:13,marginTop:6}},eErr):null
       ),
-      CE('button',{className:'gtg-pill',type:'submit',style:{width:'100%',justifyContent:'center'}},'See my results →'),
-      CE('button',{type:'button',onClick:async function(){await sendQuizToAirtable(tags,'',wb_result_data(tags));setStep(TOTAL+2);},style:{display:'block',margin:'12px auto 0',background:'none',border:'none',color:'var(--ink-muted-48)',fontSize:12.5,cursor:'pointer',textDecoration:'underline'}},'or skip to the results now'),
+      CE('button',{className:'gtg-pill',type:'submit',disabled:eBusy,style:{width:'100%',justifyContent:'center'}},eBusy?'Loading your results…':'See my results →'),
+      CE('button',{type:'button',disabled:eBusy,onClick:async function(){setEBusy(true);await sendQuizToAirtable(tags,'',wb_result_data(tags));setEBusy(false);setStep(TOTAL+2);},style:{display:'block',margin:'12px auto 0',background:'none',border:'none',color:'var(--ink-muted-48)',fontSize:12.5,cursor:'pointer',textDecoration:'underline'}},'or skip to the results now'),
       CE('button',{type:'button',onClick:back,style:{marginTop:12,background:'none',border:'none',color:'var(--ink-muted-80)',fontSize:13,cursor:'pointer',textDecoration:'underline'}},'← Back'),
       CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:14,lineHeight:1.5}},"No newsletter, no spam. Just your results and one follow-up if you'd like to chat."),
       CE('p',{style:{fontSize:12,color:'var(--ink-muted-48)',marginTop:8,lineHeight:1.5}},

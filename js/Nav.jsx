@@ -31,7 +31,7 @@ function GlobalNav({ active, onStart, onContact }) {
           <a className="gtg-iconbtn" href="https://www.instagram.com/groundingtogo?igsh=dTk1enR3YXMzcjZj" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <Icon name="instagram" size={19} stroke={1.8} />
           </a>
-          <button className="gtg-pill gtg-pill--nav" onClick={onContact}>Get in touch</button>
+          <button className="gtg-pill gtg-pill--nav" onClick={() => onContact && onContact()}>Get in touch</button>
           <button className="gtg-navtoggle" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
             <Icon name={open ? 'x' : 'menu'} size={20} stroke={1.8} />
           </button>

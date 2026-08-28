@@ -209,7 +209,7 @@ function PricingSection({ onContact }) {
           </ul>
           <p className="gtg-pricing-addon"><strong>Optional add-on:</strong> a private printable online diary with prompts to track your experience.</p>
           <p className="gtg-pricing-fine">The plan comes in an interactive online format and a printable PDF. Booking the flights and accommodation is not included.</p>
-          <button className="gtg-pill gtg-pill--ghost-clay" onClick={onContact}>Get your quote</button>
+          <button className="gtg-pill gtg-pill--ghost-clay" onClick={() => onContact('Grounding to Go Full Package')}>Get your quote</button>
         </div>
         <div className="gtg-pricing-card gtg-pricing-card--featured reveal">
           <span className="gtg-eyebrow">Founding rate</span>
@@ -222,7 +222,7 @@ function PricingSection({ onContact }) {
           </ul>
           <p className="gtg-pricing-fine"></p>
           <p className="gtg-pricing-highlight">If you do decide to book the GTG full package afterwards, your purchase amount will be deducted from your final price.</p>
-          <button className="gtg-pill" onClick={onContact}>Get your quote</button>
+          <button className="gtg-pill" onClick={() => onContact('Solo Trip Direction Package')}>Get your quote</button>
         </div>
       </div>
     </section>
@@ -376,9 +376,9 @@ function FloatingQuizButton() {
 function HomeApp() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [modal, setModal] = useState({ open: false, trip: null });
-  const [contactOpen, setContactOpen] = useState(false);
+  const [contact, setContact] = useState({ open: false, topic: '' });
   const start = () => setModal({ open: true, trip: null });
-  const openContact = () => setContactOpen(true);
+  const openContact = (topic) => setContact({ open: true, topic: topic || '' });
   useReveal();
 
   // Land on the right section when arriving with a #hash from another page
@@ -416,7 +416,7 @@ function HomeApp() {
       <ContactSection />
       <Footer onStart={start} />
       <ResetModal open={modal.open} trip={modal.trip} onClose={() => setModal({ open: false, trip: null })} />
-      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ContactModal open={contact.open} topic={contact.topic} onClose={() => setContact({ open: false, topic: '' })} />
       <TweaksPanel>
         <TweakSection label="Who it's for" />
         <TweakSlider label="Statement font size" value={t.statementFontSize} min={14} max={40} unit="px" onChange={(v) => setTweak('statementFontSize', v)} />

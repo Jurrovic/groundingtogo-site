@@ -1,5 +1,10 @@
-/* ContactModal — quick pop-up: email note or WhatsApp, no full-page form */
-function ContactModal({ open, onClose }) {
+/* ContactModal — quick pop-up: email note or WhatsApp, no full-page form.
+   `topic` is optional context on why the pop-up was opened (e.g. which
+   pricing card's "Get your quote" button was clicked) — when set, it's
+   folded into the "Sent from" line of the email so it's clear at a glance
+   which package/section someone was asking about, not just that it came
+   from this pop-up. */
+function ContactModal({ open, onClose, topic }) {
   const [form, setForm] = React.useState({ name: '', email: '', message: '' });
   const [errs, setErrs] = React.useState({});
   const [sent, setSent] = React.useState(false);
@@ -32,7 +37,8 @@ function ContactModal({ open, onClose }) {
     setErrs(er);
     if (Object.keys(er).length) return;
     setFailed(''); setBusy(true);
-    const res = await sendEnquiry(form, 'Get in touch pop-up');
+    const source = topic ? `Get in touch pop-up — ${topic}` : 'Get in touch pop-up';
+    const res = await sendEnquiry(form, source);
     setBusy(false);
     if (res.ok) setSent(true); else setFailed(res.error);
   };

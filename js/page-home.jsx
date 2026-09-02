@@ -16,7 +16,7 @@ function HomeHero({ onStart }) {
         <img className="hx-video" src="assets/hero-palms-beach.webp" alt="A woman sitting alone on a quiet beach framed by palm leaves, looking out at the water" />
         <div className="hx-scrim hx-scrim--photo" />
         <div className="hx-inner hx-inner--sky">
-          <div className="hx-bottom" style={{ marginTop: 'auto', paddingBottom: 48 }}>
+          <div className="hx-hero-copy">
             <h1 className="hx-title" style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}>Solo travel planning for women,<br />built around how you actually want to feel</h1>
             <p className="hx-lead">A 2-minute quiz matches you to the trip you need &mdash; then I plan it.</p>
             <div className="hx-cta">

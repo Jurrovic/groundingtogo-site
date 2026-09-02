@@ -94,6 +94,18 @@ body { overflow-x: hidden; }
 @media (max-width: 700px) {
   .hx-hero-copy { margin-top: auto; margin-bottom: auto; padding-bottom: 0; }
 }
+/* The quiz button + "2 minutes · free" line. On desktop this stays a normal
+   sibling right below .hx-hero-copy — same stacked layout as before, so
+   there's no collision since the text is bottom-anchored there too and the
+   two sit flush together as one group. On mobile .hx-hero-copy breaks away
+   to the vertical middle, so the button is pulled out of flow and pinned to
+   its own fixed spot at the bottom instead, independent of where the text
+   ends up. left/right:0 there line up with .hx-inner's own padding, same
+   inset the text uses. */
+.hx-hero-cta { }
+@media (max-width: 700px) {
+  .hx-hero-cta { position: absolute; left: 0; right: 0; bottom: 48px; z-index: 2; }
+}
 .hx-eyebrow { color: rgba(255,255,255,0.86); }
 .hx-title { font-family: var(--font-display); color: #fff; font-weight: 500; line-height: 0.98; letter-spacing: -1.5px; margin: 14px 0 0; font-size: clamp(48px, 8.5vw, 116px); text-wrap: balance; }
 .hx-title .ghost { color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,0.78); }

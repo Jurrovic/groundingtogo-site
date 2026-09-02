@@ -1,47 +1,30 @@
 /* Home page — inset hero, who it's for, how it works, pricing, quiz, about, itinerary preview, contact */
 const { useState } = React;
 
-/* The hero video is a fixed 16:9 clip with its headline baked into the
-   footage, so it must never be cropped. .hx-media-box wraps the video and
-   its dark .hx-scrim overlay together, and this hook measures the frame and
-   sizes that box to the largest 16:9 rectangle that fits inside it — the
-   same math object-fit: contain uses, just applied to a plain box instead of
-   the video alone, so the scrim darkens only the video's actual picture and
-   never spills into the letterbox bars around it. Those bars are then just
-   .hx-frame's own plain canvas background showing through, matching the
-   section below the hero instead of reading as a tinted edge. */
-function useContainedMediaSize(frameRef) {
-  const [size, setSize] = React.useState(null);
-  React.useLayoutEffect(() => {
-    const el = frameRef.current;
-    if (!el) return;
-    const RATIO = 16 / 9;
-    const update = () => {
-      const w = el.clientWidth, h = el.clientHeight;
-      if (!w || !h) return;
-      let mw = w, mh = w / RATIO;
-      if (mh > h) { mh = h; mw = h * RATIO; }
-      setSize({ width: Math.round(mw), height: Math.round(mh) });
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [frameRef]);
-  return size;
-}
-
+/* The hero used to be a looping video with its own headline burned into the
+   footage as atmosphere — but that meant the real headline only existed as
+   pixels inside a video, invisible to Google, Pinterest and AI crawlers
+   (they don't reliably wait for JS, and none of them read text out of video
+   frames). It's now a plain photo (a still that was already sitting unused
+   in assets/, with no baked-in text) behind a real HTML headline, subheading
+   and quiz button — the same "real text in the page" approach the blog
+   pages already use. */
 function HomeHero({ onStart }) {
-  const frameRef = React.useRef(null);
-  const mediaSize = useContainedMediaSize(frameRef);
   return (
     <section className="hx">
-      <div className="hx-frame hx-frame--sky reveal" ref={frameRef}>
-        <div className="hx-media-box" style={mediaSize ? { width: mediaSize.width, height: mediaSize.height } : undefined}>
-          <video className="hx-video" autoPlay muted loop playsInline src="assets/hero-video.mp4"></video>
-          <div className="hx-scrim hx-scrim--photo" />
+      <div className="hx-frame hx-frame--sky reveal">
+        <img className="hx-video" src="assets/hero-laura-beach.png" alt="A woman sitting alone on a quiet beach, looking out at the water" />
+        <div className="hx-scrim hx-scrim--photo" />
+        <div className="hx-inner hx-inner--sky">
+          <div className="hx-bottom" style={{ marginTop: 'auto', paddingBottom: 48 }}>
+            <h1 className="hx-title" style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}>Solo travel planning for women,<br />built around how you actually want to feel</h1>
+            <p className="hx-lead">A 2-minute quiz matches you to the trip you need &mdash; then I plan it.</p>
+            <div className="hx-cta">
+              <button className="gtg-pill" onClick={onStart}>What kind of solo trip do you need? <Icon name="arrowRight" size={16} stroke={1.9} /></button>
+            </div>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 13, marginTop: 10, fontStyle: 'italic' }}>2 minutes &middot; free</p>
+          </div>
         </div>
-        <div className="hx-inner hx-inner--sky"></div>
       </div>
     </section>
   );

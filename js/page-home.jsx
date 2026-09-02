@@ -11,7 +11,7 @@ const { useState } = React;
    pages already use. */
 function HomeHero() {
   return (
-    <section className="hx">
+    <section className="hx" id="home-hero">
       <div className="hx-frame hx-frame--sky reveal">
         <img className="hx-video" src="assets/hero-palms-beach.webp" alt="A woman sitting alone on a quiet beach framed by palm leaves, looking out at the water" />
         <div className="hx-scrim hx-scrim--photo" />
@@ -349,12 +349,24 @@ function ContactSection() {
   );
 }
 
-/* Floating "Take the Quiz" pill — fixed on screen for the entire page, so
-   it's always available no matter where you've scrolled to. This is now the
-   only quiz CTA on the hero (the hero's own button was removed). */
+/* Floating "Take the Quiz" pill — fixed on screen so it's available no
+   matter where you've scrolled to. It stays hidden while the hero (with its
+   own "What kind of solo trip do you need?" button) is on screen, so the two
+   never sit on top of each other, then fades in once the hero has scrolled
+   out of view. */
 function FloatingQuizButton() {
+  const [visible, setVisible] = useState(false);
+  React.useEffect(() => {
+    const hero = document.getElementById('home-hero');
+    if (!hero || !('IntersectionObserver' in window)) { setVisible(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => setVisible(!en.isIntersecting));
+    }, { threshold: 0 });
+    io.observe(hero);
+    return () => io.disconnect();
+  }, []);
   return (
-    <a className="gtg-pill gtg-floatquiz" href="#quiz">Take the Quiz</a>
+    <a className={'gtg-pill gtg-floatquiz' + (visible ? ' is-visible' : '')} href="#quiz" aria-hidden={!visible} tabIndex={visible ? 0 : -1}>Take the Quiz</a>
   );
 }
 

@@ -9,7 +9,7 @@ const { useState } = React;
    in assets/, with no baked-in text) behind a real HTML headline, subheading
    and quiz button — the same "real text in the page" approach the blog
    pages already use. */
-function HomeHero({ onStart }) {
+function HomeHero() {
   return (
     <section className="hx">
       <div className="hx-frame hx-frame--sky reveal">
@@ -19,8 +19,10 @@ function HomeHero({ onStart }) {
           <div className="hx-hero-copy">
             <h1 className="hx-title" style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}>Solo travel planning for women,<br />built around how you actually want to feel</h1>
             <p className="hx-lead">A 2-minute quiz matches you to the trip you need &mdash; then I plan it.</p>
+          </div>
+          <div className="hx-hero-cta">
             <div className="hx-cta">
-              <button className="gtg-pill" onClick={onStart}>What kind of solo trip do you need? <Icon name="arrowRight" size={16} stroke={1.9} /></button>
+              <a className="gtg-pill" href="#quiz">What kind of solo trip do you need? <Icon name="arrowRight" size={16} stroke={1.9} /></a>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 13, marginTop: 10, fontStyle: 'italic' }}>2 minutes &middot; free</p>
           </div>
@@ -389,7 +391,7 @@ function HomeApp() {
   return (
     <>
       <GlobalNav active="home" onStart={start} onContact={openContact} />
-      <HomeHero onStart={start} />
+      <HomeHero />
       <FloatingQuizButton />
       <WhoItsFor statementFontSize={t.statementFontSize} />
       <HowItWorks />

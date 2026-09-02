@@ -13,7 +13,7 @@ function HomeHero({ onStart }) {
   return (
     <section className="hx">
       <div className="hx-frame hx-frame--sky reveal">
-        <img className="hx-video" src="assets/hero-palms-beach.jpg" alt="A woman sitting alone on a quiet beach framed by palm leaves, looking out at the water" />
+        <img className="hx-video" src="assets/hero-palms-beach.webp" alt="A woman sitting alone on a quiet beach framed by palm leaves, looking out at the water" />
         <div className="hx-scrim hx-scrim--photo" />
         <div className="hx-inner hx-inner--sky">
           <div className="hx-bottom" style={{ marginTop: 'auto', paddingBottom: 48 }}>

@@ -61,7 +61,7 @@ body { overflow-x: hidden; }
    INSET HERO FRAME (reference structure, reskinned warm)
    ========================================================================= */
 .hx { padding: 0; background: var(--canvas); }
-.hx-frame { position: relative; border-radius: 0; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; background: var(--canvas); }
+.hx-frame { position: relative; border-radius: 0; overflow: hidden; min-height: 70vh; min-height: 70svh; display: flex; background: var(--canvas); }
 .hx-bg { position: absolute; inset: 0; transform: scale(1.01); }
 /* The video is a fixed 16:9 clip with its headline baked into the footage, so
    it must never be cropped. .hx-media-box is sized to the largest 16:9 box
@@ -80,32 +80,17 @@ body { overflow-x: hidden; }
 .hx-scrim { position: absolute; inset: 0; background:
     linear-gradient(195deg, rgba(20,17,13,0.42) 0%, rgba(20,17,13,0.12) 40%, rgba(20,17,13,0.0) 62%),
     linear-gradient(0deg, rgba(20,17,13,0.66) 0%, rgba(20,17,13,0.18) 40%, rgba(20,17,13,0.0) 70%); }
-.hx-inner { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(28px, 4.4vw, 60px); }
+.hx-inner { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(28px, 4.4vw, 60px); }
 .hx-top { display: flex; justify-content: flex-end; }
 .hx-card { max-width: 320px; text-align: left; }
 .hx-card p { color: rgba(255,255,255,0.92); font-size: 16px; line-height: 1.5; margin: 0 0 16px; }
 .hx-bottom { margin-top: 80px; }
-/* Homepage hero copy block (headline/lead/CTA over the photo). Bottom-anchored
-   on desktop, where there's plenty of vertical room. On phones the same
-   bottom position sits low enough to cover the photo's subject, so it's
-   nudged up toward the vertical middle instead, landing over open water/sky
-   rather than the sand. */
-.hx-hero-copy { margin-top: auto; padding-bottom: 48px; }
-@media (max-width: 700px) {
-  .hx-hero-copy { margin-top: auto; margin-bottom: auto; padding-bottom: 0; }
-}
-/* The quiz button + "2 minutes · free" line. On desktop this stays a normal
-   sibling right below .hx-hero-copy — same stacked layout as before, so
-   there's no collision since the text is bottom-anchored there too and the
-   two sit flush together as one group. On mobile .hx-hero-copy breaks away
-   to the vertical middle, so the button is pulled out of flow and pinned to
-   its own fixed spot at the bottom instead, independent of where the text
-   ends up. left/right:0 there line up with .hx-inner's own padding, same
-   inset the text uses. */
-.hx-hero-cta { }
-@media (max-width: 700px) {
-  .hx-hero-cta { position: absolute; left: 0; right: 0; bottom: 48px; z-index: 2; }
-}
+/* Homepage hero copy block (headline, quiz button, lead) — top-anchored,
+   so it's the first thing visible when the page loads, no scrolling
+   required. The photo behind it is now a shorter strip (see .hx-frame)
+   rather than a full-screen backdrop, which is what makes this possible on
+   phones as well as desktop. */
+.hx-hero-copy { }
 .hx-eyebrow { color: rgba(255,255,255,0.86); }
 .hx-title { font-family: var(--font-display); color: #fff; font-weight: 500; line-height: 0.98; letter-spacing: -1.5px; margin: 14px 0 0; font-size: clamp(48px, 8.5vw, 116px); text-wrap: balance; }
 .hx-title .ghost { color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,0.78); }
@@ -114,9 +99,13 @@ body { overflow-x: hidden; }
 .hx-cta { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
 
 /* Sky variant — dark-grey copy set into the bright upper sky */
-.hx-frame--sky { min-height: 100vh; }
-/* Photo variant — centered white wordmark, no cream fade */
-.hx-frame--sky { min-height: 100vh; }
+.hx-frame--sky { min-height: 70vh; min-height: 70svh; }
+@media (max-width: 700px) {
+  /* Shorter still on phones — the photo was running far too tall here, and
+     shrinking it is what lets the headline sit at the very top of the
+     screen, visible the instant the page opens, with no scrolling. */
+  .hx-frame--sky { min-height: 44vh; min-height: 44svh; }
+}
 /* This used to shrink the frame to a fixed 4:3 box to match a fixed 16:9
    video clip on tall phone screens. The hero is now a full-bleed cover photo
    (no fixed aspect ratio to protect) carrying a real headline/subhead/CTA
@@ -136,7 +125,7 @@ body { overflow-x: hidden; }
 .hx-scrim--sky { background:
     linear-gradient(180deg, rgba(246,241,234,0.74) 0%, rgba(246,241,234,0.32) 36%, rgba(246,241,234,0) 62%),
     linear-gradient(102deg, rgba(246,241,234,0.68) 0%, rgba(246,241,234,0.42) 30%, rgba(246,241,234,0.08) 50%, rgba(246,241,234,0) 62%); }
-.hx-inner--sky { justify-content: space-between; }
+.hx-inner--sky { justify-content: flex-start; }
 .hx-top--sky { display: block; text-align: left; max-width: 660px; position: relative; top: clamp(-66px, -5vw, -40px); }
 .hx-top--sky .hx-eyebrow { color: var(--ink-muted-80); }
 .hx-top--sky .hx-title { color: var(--ink); text-shadow: 0 1px 24px rgba(246,241,234,0.55); }

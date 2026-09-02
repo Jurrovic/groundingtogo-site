@@ -96,14 +96,13 @@ body { overflow-x: hidden; }
 .hx-frame--sky { min-height: 100vh; }
 /* Photo variant — centered white wordmark, no cream fade */
 .hx-frame--sky { min-height: 100vh; }
-/* On tall/narrow phone screens, a full 100vh frame is so much taller than the
-   16:9 video that containing it would leave huge empty bars above and below.
-   Shrink the frame itself to a closer, still-taller-than-video ratio instead,
-   so the whole clip shows with only a small letterbox, and pin the CTA to the
-   bottom-left, clear of the headline above and the photo's subject on the right. */
+/* This used to shrink the frame to a fixed 4:3 box to match a fixed 16:9
+   video clip on tall phone screens. The hero is now a full-bleed cover photo
+   (no fixed aspect ratio to protect) carrying a real headline/subhead/CTA
+   stack, which needs the full-height frame from .hx-frame to have room —
+   so on mobile it keeps the same 100svh height as desktop instead of
+   shrinking. */
 @media (max-width: 700px), (max-aspect-ratio: 3/4) {
-  .hx-frame--sky { min-height: 0; aspect-ratio: 4 / 3; }
-  .hx-inner--sky { justify-content: flex-end; }
   .hx-bottom--sky { position: absolute; left: clamp(16px, 4vw, 28px); right: auto; bottom: clamp(12px, 3vw, 20px); margin-top: 0; padding-bottom: 0; justify-content: flex-start; }
   .hx-bottom--sky .hx-bottom-btn { align-self: auto; }
 }

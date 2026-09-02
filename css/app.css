@@ -85,6 +85,15 @@ body { overflow-x: hidden; }
 .hx-card { max-width: 320px; text-align: left; }
 .hx-card p { color: rgba(255,255,255,0.92); font-size: 16px; line-height: 1.5; margin: 0 0 16px; }
 .hx-bottom { margin-top: 80px; }
+/* Homepage hero copy block (headline/lead/CTA over the photo). Bottom-anchored
+   on desktop, where there's plenty of vertical room. On phones the same
+   bottom position sits low enough to cover the photo's subject, so it's
+   nudged up toward the vertical middle instead, landing over open water/sky
+   rather than the sand. */
+.hx-hero-copy { margin-top: auto; padding-bottom: 48px; }
+@media (max-width: 700px) {
+  .hx-hero-copy { margin-top: auto; margin-bottom: auto; padding-bottom: 0; }
+}
 .hx-eyebrow { color: rgba(255,255,255,0.86); }
 .hx-title { font-family: var(--font-display); color: #fff; font-weight: 500; line-height: 0.98; letter-spacing: -1.5px; margin: 14px 0 0; font-size: clamp(48px, 8.5vw, 116px); text-wrap: balance; }
 .hx-title .ghost { color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,0.78); }

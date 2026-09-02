@@ -15,7 +15,19 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root"><section class="gtg-style-intro">
+  <div class="center-narrow reveal">
+    <span class="gtg-eyebrow">Your travel style</span>
+    <h1 class="gtg-pagehero-title" style="margin-top:14px">Four ways to come<br>back to yourself.</h1>
+    <p>Everyone resets differently. Some need open water, some need empty desert, some need the cover of trees or the clarity of high air. Take the <a class="gtg-textlink" href="index.html#quiz">quiz</a> to find yours &mdash; or read through and feel which one is already calling.</p>
+  </div>
+</section></div>
+<!-- The block above is real, crawlable text mirroring what StyleApp renders
+     for the intro section (see js/page-travel-styles.jsx) — search/AI
+     crawlers that don't run JavaScript still get the real headline and quiz
+     link. Once React mounts, it replaces this div's contents with the full
+     interactive page, so nothing changes for real visitors. Keep this in
+     sync with the JSX above if that intro section's copy changes. -->
 <script src="js/image-slot.js"></script>
 <script type="text/babel" src="js/Icons.jsx"></script>
 <script type="text/babel" src="js/Photo.jsx"></script>

@@ -51,7 +51,7 @@ function BlogApp() {
         <a className="gtg-blog-featured reveal" href={'/blog/' + featured.id + '/'} onClick={(e) => { e.preventDefault(); setReading(featured); }}>
           <div className="gtg-blog-featured-media">
             {featured.image
-              ? <img className="gtg-blog-featured-img" src={featured.image} alt="" />
+              ? <img className="gtg-blog-featured-img" src={featured.image} alt={featured.title} />
               : <Photo mood={featured.mood} style={{ position: 'absolute', inset: 0 }} />}
           </div>
           <div className="gtg-blog-featured-copy">
@@ -76,7 +76,7 @@ function BlogApp() {
             <a className="gtg-blog-card reveal" key={p.id} href={'/blog/' + p.id + '/'} onClick={(e) => { e.preventDefault(); setReading(p); }}>
               <div className={'gtg-blog-card-media' + (p.tall ? ' gtg-blog-card-media--tall' : '')}>
                 {p.image
-                  ? <img className={'gtg-blog-featured-img' + (p.tall ? ' gtg-blog-img--tall' : '')} src={p.image} alt="" />
+                  ? <img className={'gtg-blog-featured-img' + (p.tall ? ' gtg-blog-img--tall' : '')} src={p.image} alt={p.title} />
                   : <Photo mood={p.mood} style={{ position: 'absolute', inset: 0 }} />}
               </div>
               <div className="gtg-blog-card-body">
@@ -100,7 +100,7 @@ function BlogApp() {
             </button>
             <div className="gtg-reader-photo">
               {reading.image
-                ? <img className="gtg-reader-img" src={reading.image} alt="" />
+                ? <img className="gtg-reader-img" src={reading.image} alt={reading.title} />
                 : <Photo mood={reading.mood} raised style={{ position: 'absolute', inset: 0 }} />}
             </div>
             <div className="gtg-reader-body">

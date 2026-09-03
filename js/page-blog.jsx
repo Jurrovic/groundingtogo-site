@@ -42,7 +42,14 @@ function BlogApp() {
 
       <section className="gtg-blog-intro">
         <div className="center-narrow reveal">
-          <h1 className="gtg-blog-hero-title">The Grounding<em>to</em>Go blog</h1>
+          {/* Only one <h1> should exist on the page at a time. This one is
+              the page's real heading while browsing the list — but when a
+              post is open in the reader overlay below, that post's own
+              title takes over as the page's one true <h1>, so this drops
+              to an <h2> for as long as the overlay is up. */}
+          {reading
+            ? <h2 className="gtg-blog-hero-title">The Grounding<em>to</em>Go blog</h2>
+            : <h1 className="gtg-blog-hero-title">The Grounding<em>to</em>Go blog</h1>}
           <p className="gtg-blog-hero-sub">Solo travel with intention</p>
         </div>
       </section>
